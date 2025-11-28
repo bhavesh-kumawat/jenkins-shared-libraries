@@ -13,6 +13,9 @@ def call(String Project, String ImageTag, String credentialsId) {
             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
         '''
 
+        // tag image for push
+        sh "docker tag ${Project}:${ImageTag}  ${DOCKER_USER}/${Project}:${ImageTag}"
+
         // Push image
         sh """
             docker push ${DOCKER_USER}/${Project}:${ImageTag}
